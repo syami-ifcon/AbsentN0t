@@ -33,4 +33,5 @@ Rails.application.routes.draw do
   post '/add_subject' => 'admin#add_subject'
   get '/dashboard' => 'admin#dashboard'
   post '/date' => 'admin#reported'
+  get '/shit' => 'admin#admin'
 end

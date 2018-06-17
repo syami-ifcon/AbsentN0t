@@ -1,27 +1,28 @@
 class AdminController < Clearance::SessionsController
 
+  def admin
+    
+  end
+
   def admin_panel
   	@lecture = Lecture.all
-  	render :stream => @lecture.to_xml 
-	# respond_to do |format|
-	#   format.html
-	#   format.xml { send_file :filename => 'mydoc.xml', :type=>"application/xml", :disposition => 'attachment' }
-	# end
   end
 
   def add_teacher
     x = User.create(email: params[:email],name: params[:name],password: params[:password])
-    flash[:warning] = "You Should not Access this page as a student"
+    flash[:warning] = "Successfully Create Teacher"
     redirect_to '/admin'
   end
 
-  # def add_student
-  #   x = Student.create(first_name:,last_name:,email:,phone:)
-  # end
+  def add_student
+    x = Student.create(first_name: params[:first_name],last_name: params[:last_name],email: params[:email],phone: params[:phone])
+    flash[:warning] = "Successfully Create Student"
+  end
 
-  # def add_subject
-  #   x = Lectures.create(subject_name:,user_id:,name:,time:)
-  # end
+  def add_subject
+    x = Lectures.create(subject_name: params[:subject_name],user_id: params[:user_id],name: params[:name],time: params[:time])
+    flash[:warning] = "Successfully Create Subject"
+  end
 
   def dashboard
     now = Date.current
@@ -53,8 +54,4 @@ class AdminController < Clearance::SessionsController
     end
   end
 
-  def xml
-  	@lecture = Lecture.all
-  	render :xml => @lecture.to_xml
-  end
 end
