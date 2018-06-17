@@ -16,16 +16,13 @@
 
 <div class="container mt-5">
 
-	<!-- Lecture name will be dispalyed here -->
 	<h1 id="header" style="margin-bottom: 20px">Welcome <%= current_user.name %></h1> 
-
-	<!-- <h2 id="headline">Student Attendance</h2> -->
-
+	<!-- P.C. (President College) wanted us to set it to daily schedule for classes for current_user == admin-->
 	<table id="attendance" class="animated flipInX table table-striped table-dark text-center" ">
 			<tr>
 				<th>Lecture's Name</th>
 				<th>Subject</th>
-				<th>Student Attendee</th>
+				<th>Student Attendance</th>
 				<th>Time</th>
 				<th>QR Code</th>
 				<th></th>
@@ -35,12 +32,14 @@
 			<tr>
 				<td><%= lec.name %></td>
 				<td><%= lec.subject_name %></td>
-				<td><%= Attendance.attendance_count(lec.id) %></td>
+				<td><%= Attendance.attendance_count(lec.id)%> / <%= Attendance.attendance_all(lec.id)%></td>
 				<td><%= lec.time %></td>
 				<td><a href="<%= lecture_qr_path(lec.id) %>"><i class="fas fa-qrcode"></i><br>QR</a></td>
 				<td><a href="<%= lecture_student_list_path(lec.id) %>"><i class="fas fa-users"></i><br>View Students</a></td>
 			</tr>
+			<% end %>
+		</table>
 
-			<% end %></table>
+	<!-- and If current_user == teacher then they get to see the classes/schedule they have for today -->
 </div>
 
