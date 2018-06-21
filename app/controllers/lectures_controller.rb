@@ -88,8 +88,8 @@ class LecturesController < ApplicationController
     uid = current_user.id
     @lecture = Lecture.find(params[:lecture_id])
     # change domain name after deployment because we are using localhost for now
-    @domain = 'http://855f0cc4.ngrok.io'
-    @param = "lectures/#{@lecture.id.to_i}"
+    @domain = 'http://localhost:3000'
+    @param = "/auth/google_oauth2?lecture_id=#{@lecture.id}"
     @link = @domain + @param 
     @qr = RQRCode::QRCode.new("#{@link}")
     return @qr

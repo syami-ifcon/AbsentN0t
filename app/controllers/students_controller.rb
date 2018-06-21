@@ -11,19 +11,20 @@ class StudentsController < ApplicationController
 
 	def create_from_omniauth
 	    auth_hash = request.env["omniauth.auth"]
-	    byebug
+	    # take lecture id
+	    lecture_id = request.env["omniauth.params"]
 	    # search for authentication object of the student
 	    authentication = Authentication.find_by_provider_and_uid(auth_hash["provider"], auth_hash["uid"]) ||  Authentication.create_with_omniauth(auth_hash)
 	    if authentication.student
 	    	# get student object by using the authentication object
 		    student = authentication.student
 		    authentication.update_token(auth_hash)
- 	  		@attendance = Attendance.update(lecture_id: cookies[:lecture].to_i, student_id: authentication.student_id,present: true)
+ 	  		@attendance = Attendance.update(lecture_id: lecture_id["lecture_id"].to_i, student_id: authentication.student_id,present: true)
 	    else
- 	  		x = Student.find_by(email: auth_hash["info"]["email"])
- 	  		x.destroy
+ 	  		# x = Student.find_by(email: auth_hash["info"]["email"])
+ 	  		# x.destroy
  	  		@student = Student.create_with_auth_and_hash(authentication, auth_hash)
- 	  		@attendance = Attendance.create(lecture_id: cookies[:lecture].to_i, student_id: authentication.student_id,present: true)
+ 	  		@attendance = Attendance.create(lecture_id: lecture_id["lecture_id"].to_i, student_id: authentication.student_id,present: true)
 	  	end
 	  	redirect_to root_path
 	end

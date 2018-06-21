@@ -8,38 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Oswald|Oswald:700|Quicksand|Tajawal" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> 
 </head>
-<style type="text/css">
-  
-body {
-  overflow: hidden;
-  background: #262b2e
-}
-
-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1950px;
-  height: auto; 
-}
-
-#canvas {
-  z-index: -1;
-}
-#canvasbg {
-  z-index: -10;
-  -webkit-filter: blur(3px);
-  -moz-filter: blur(3px);
-  -o-filter: blur(3px);
-  filter: blur(3px);
-  opacity: 0.6;
-}
-</style>
-
-<body onload="timer()">
-
-<canvas id="canvas" width="1950px" height="800px"></canvas>
-<canvas id="canvasbg" width="1950px" height="800px"></canvas>
+<body onload="timer()" style="background-color: black">
 <style>
   table {
       border-width: 0;
