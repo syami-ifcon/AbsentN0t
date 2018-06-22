@@ -1,26 +1,25 @@
 class AdminController < Clearance::SessionsController
 
-  def admin
-    
-  end
-
   def admin_panel
   	@lecture = Lecture.all
   end
 
+# post
   def add_teacher
-    x = User.create(email: params[:email],name: params[:name],password: params[:password])
+    x = User.create(email: params[:email],name: params[:username],password: params[:password])
     flash[:warning] = "Successfully Create Teacher"
     redirect_to '/admin'
   end
 
+# post
   def add_student
-    x = Student.create(first_name: params[:first_name],last_name: params[:last_name],email: params[:email],phone: params[:phone])
+    x = Student.create(email: params[:email])
     flash[:warning] = "Successfully Create Student"
   end
 
+# post
   def add_subject
-    x = Lectures.create(subject_name: params[:subject_name],user_id: params[:user_id],name: params[:name],time: params[:time])
+    x = lecture.create(subject_name: params[:subject_name],user_id: params[:user_id])
     flash[:warning] = "Successfully Create Subject"
   end
 
@@ -35,6 +34,7 @@ class AdminController < Clearance::SessionsController
     end
   end
 
+# post and send back in js
   def reported
     @absent = 0
     @notabsent = 0

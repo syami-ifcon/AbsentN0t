@@ -7,25 +7,14 @@ Rails.application.routes.draw do
       only: [:create, :edit, :update]
   end
 
-# user sign in for all
+  root 'home#index'
+
+# User sign in for teacher and admin
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
   get "/sign_up" => "clearance/users#new", as: "sign_up"
-  post  '/create_student' => 'lectures#create_student'
-  root 'home#index'
-  get "/auth/:provider/callback" => "students#create_from_omniauth"
-  get '/new_student' => 'lectures#new_student'
 
-  get "/attending_authentication" => "home#student_attend"
-  post "/lectures" => "lectures#create"
-  resources :lectures, only: [:index,:new,:show] do
-    get "/qr" => "lectures#qr_code"
-    get '/student_list' => 'lectures#student_list'
-    get '/sign_up' => "students#sign_up"
-  end
 
-  get '/sign_up/students' => "students#new_student"
-  
 # Admin
   get '/admin' => 'admin#admin_panel'
   post '/add_student' => 'admin#add_student'
@@ -34,4 +23,16 @@ Rails.application.routes.draw do
   get '/dashboard' => 'admin#dashboard'
   post '/date' => 'admin#reported'
   get '/shit' => 'admin#admin'
+
+# Teacher
+  resources :lectures, only: [:index,:new,:show] do
+    get "/qr" => "lectures#qr_code"
+    get '/student_list' => 'lectures#student_list'
+    get '/sign_up' => "students#sign_up"
+  end
+  
+# Student
+  get "/auth/:provider/callback" => "students#create_from_omniauth"
+ 
+
 end

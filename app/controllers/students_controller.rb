@@ -10,6 +10,7 @@ class StudentsController < ApplicationController
 	end
 
 	def create_from_omniauth
+		# there is diffrent in param that is receive which it is in the hd params
 	    auth_hash = request.env["omniauth.auth"]
 	    # take lecture id
 	    lecture_id = request.env["omniauth.params"]
@@ -21,10 +22,17 @@ class StudentsController < ApplicationController
 		    authentication.update_token(auth_hash)
  	  		@attendance = Attendance.update(lecture_id: lecture_id["lecture_id"].to_i, student_id: authentication.student_id,present: true)
 	    else
- 	  		# x = Student.find_by(email: auth_hash["info"]["email"])
- 	  		# x.destroy
- 	  		@student = Student.create_with_auth_and_hash(authentication, auth_hash)
- 	  		@attendance = Attendance.create(lecture_id: lecture_id["lecture_id"].to_i, student_id: authentication.student_id,present: true)
+ 	  		x = Student.find_by(email: auth_hash["info"]["email"])
+ 	  		if x
+ 	  			x.destroy
+ 	  			@student = Student.create_with_auth_and_hash(authentication, auth_hash)
+ 	  			@attendance = Attendance.create(lecture_id: lecture_id["lecture_id"].to_i, student_id: authentication.student_id,present: true)
+			  	haha = Lecture.find(lecture_id["lecture_id"].to_i)
+			  	flash[:success] = "You Successfully Attending #{haha.subject_name}"
+ 	  		else
+	  			flash[:warning] = "See Your Administrator to Register with this credential"
+ 	  		end
+ 	  		byebug
 	  	end
 	  	redirect_to root_path
 	end

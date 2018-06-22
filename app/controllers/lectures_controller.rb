@@ -5,7 +5,7 @@ class LecturesController < ApplicationController
   
   def index
     if current_user.roles == 'admin'
-      redirect_to '/admin'
+      redirect_to admin_path
     end
 
     if current_user
@@ -46,18 +46,7 @@ class LecturesController < ApplicationController
       return redirect_to root_path
     end
   end
-
-  def create
-    if current_user
-      @lecture = Lecture.new(name: params["lecture"]["name"], user_id: current_user.id, subject_name: params["lecture"]["subject_name"])
-      @lecture.save
-      flash[:success] = "Lecture is Created"
-      redirect_to lectures_path
-    else
-      flash[:danger] = "You need to Log In enter That Page"
-    end
-  end
-
+  
   def new_student
   end
 

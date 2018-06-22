@@ -13,12 +13,11 @@
 
 </style>
 
-
 <div class="container mt-5">
 
 	<h1 id="header" style="margin-bottom: 20px">Welcome <%= current_user.name %></h1> 
 	<!-- P.C. (President College) wanted us to set it to daily schedule for classes for current_user == admin-->
-	<table id="attendance" class="animated flipInX table table-striped table-dark text-center" ">
+	<table id="attendance" class="animated flipInX table table-striped table-dark text-center">
 			<tr>
 				<th>Lecture's Name</th>
 				<th>Subject</th>
@@ -39,7 +38,5 @@
 			</tr>
 			<% end %>
 		</table>
-
-	<!-- and If current_user == teacher then they get to see the classes/schedule they have for today -->
 </div>
 
